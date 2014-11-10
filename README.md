@@ -35,3 +35,6 @@ commons-codec-1.8.jar
 commons-lang3-3.1.jar  
 mysql-connector-java-5.1.7-bin.jar  
 
+my e-mail:  
+needlewang2011@gmail.com
+
