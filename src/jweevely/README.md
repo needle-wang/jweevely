@@ -5,25 +5,26 @@ a exec jsp shell, simply like weevely php C/S shell.
 
 #2014年 11月 10日 星期一 22:26:33 CST
 I code it for the OS of chinese environment(gbk), also can run in an en_OS.
+now I am a pythoner, and will not code java anymore maybe.
+I think it would be easier and better that the client use python.
 
 use cookie to send encrypted data, the same as weevely.
-it can show the right gbk and utf8 words.
+can show the right gbk and utf8 words.
 support cd(I write it by myself...).
 support some simple completion(supported by jline).
 can exec cmd.
 can upload text file, not binary~
 
 module(not exactly module, just another jsp~):
-
-module_db.jsp     : it using a timer can remove itself.
+module_db.jsp     : it can remove itself by using a timer.
 reverse_shell.jsp : from msf.
-...(such as jfolder.jsp by yourself~)
+...(such as jfolder.jsp, do it by yourself~)
 
 
 I wrote it before learned git.
 the changelog is so poor~
 
-C/S in jdk1.6(not sure that if it can be in jdk1.5 or lower):
+the C/S can be in jdk1.6(not sure that if it can be in jdk1.5 or lower):
 the client need some jar to run:
 
 httpclient-4.3.1.jar
