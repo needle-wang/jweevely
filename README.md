@@ -4,7 +4,7 @@ jweevely
 a exec jsp shell, simply like weevely php C/S shell.
 
 #2014年 11月 10日 星期一 22:26:33 CST
-I code it for the OS of chinese environment(gbk), also can run in an en_OS.
+I code it for the OS of chinese environment(gbk), also can run in an en_OS.  
 now I am a pythoner, and will not code java anymore maybe.
 I think it would be easier and better that the client use python.
 
