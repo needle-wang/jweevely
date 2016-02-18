@@ -22,7 +22,7 @@ reverse_shell.jsp : from msf.
 
 
 I wrote it before learned git.  
-the changelog is so poor~  
+the changelog is awful~  
 
 the C/S can be in jdk1.6(not sure that if it can be in jdk1.5 or lower):  
 the client need some jar to run:  
