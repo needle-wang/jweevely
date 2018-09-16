@@ -70,7 +70,7 @@ public class BuiltIn {
 				uriAbsolutePath.indexOf("`") + 1,
 				uriAbsolutePath.lastIndexOf("`"));
 
-		int path_delimiter_index = uriAbsolutePath.indexOf(",");
+		int path_delimiter_index = uriAbsolutePath.indexOf(":");
 
 		// useful for linux client connect to windows.
 		// must do this, the doUploadFile need /
@@ -458,13 +458,13 @@ public class BuiltIn {
 
 		if (this.getRemoteOsName().contains("linux")) {
 			String[] infoList = new String[] {
-					"echo \"current_user: $(whoami)\"",
-					"echo \"PATH=${PATH}\"",
+					"echo -e \"current_user: $(whoami)\\n\"",
+					"echo -e \"PATH=${PATH}\\n\"",
 					"sort ~/.bash_history|uniq -c|sort -nr|head -n 12",
-					"echo \"online_users:\n$(w)\"", "cat /etc/issue",
+					"echo -e \"\\nonline_users:\n$(w)\\n\"", "cat /etc/issue",
 					"cat /etc/motd", "uname -a",
-					"echo \"release:$(lsb_release -a)\"", "cat /etc/passwd",
-					"ifconfig", "netstat -ntlp", "df -h" };
+					"echo -e \"\\nrelease:$(lsb_release -a)\\n\"", "cat /etc/passwd",
+					"ip a", "ss -ntlp", "df -h" };
 			for (String aList : infoList) {
 				strBuf.append(aList).append(";");
 			}

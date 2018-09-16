@@ -15,4 +15,4 @@ hs_err_pid*
 .*
 WebRoot/WEB-INF/classes/
 WebRoot/META-INF/
-
+*.iml
