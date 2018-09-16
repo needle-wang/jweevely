@@ -1,39 +1,38 @@
-jweevely
-========
+### JWEEVELY
+a exec jsp shell, simply like weevely php C/S shell
 
-a exec jsp shell, simply like weevely php C/S shell.
+##### FEATURE
+1. exec cmd mainly  
+2. upload text file, not binary  
+3. cd(code it by myself...)  
+4. gbk and utf8 presents well  
+5. support some simple command line completion(supported by jline)  
+6. use cookie to send encrypted data, the same as weevely  
 
-#2014年 11月 10日 星期一 22:26:33 CST
-I code it for the OS of chinese environment(gbk), also can run in an en_OS.  
-now I am a pythoner, and will not code java anymore maybe.  
-I think it would be easier and better that the client use python.  
+##### MODULE(not exactly module, just another jsp):  
+- module_db.jsp     : it can remove itself by using a timer  
+- reverse_shell.jsp : from msf  
+- ...(such as jfolder.jsp, do it by yourself)  
 
-use cookie to send encrypted data, the same as weevely.  
-can show the right gbk and utf8 words.  
-support cd(I write it by myself...).  
-support some simple completion(supported by jline).  
-can exec cmd.  
-can upload text file, not binary~  
+##### HOWTO
+`java -jar jweevely0.4.jar http://127.0.0.1:8080/jweevely.jsp passwd_in_jsp`
 
-module(not exactly module, just another jsp~):  
-module_db.jsp     : it can remove itself by using a timer.  
-reverse_shell.jsp : from msf.  
-...(such as jfolder.jsp, do it by yourself~)  
+##### THE SERVER: jweevely.jsp  
+can only be deployed in jdk1.8 or lower  
+`key_important` is the md5 value of `passwd_in_jsp`
 
+##### THE CLIENT: jweevely.jar  
+the client contains:  
+`commons-codec-1.8.jar` `commons-lang3-3.1.jar` `commons-logging-1.1.3.jar`  
+`httpclient-4.3.1.jar` `httpcore-4.3.jar`  
+`jline-2.10.jar` `mysql-connector-java-5.1.7-bin.jar`
 
-I wrote it before learned git.  
-the changelog is awful~  
-
-the C/S can be in jdk1.6(not sure that if it can be in jdk1.5 or lower):  
-the client need some jar to run:  
-
-httpclient-4.3.1.jar  
-httpcore-4.3.jar  
-commons-logging-1.1.3.jar  
-jline-2.10.jar  
-commons-codec-1.8.jar  
-commons-lang3-3.1.jar  
-mysql-connector-java-5.1.7-bin.jar  
+##### MISC
+2018年 09月 17日 星期一 04:20:20 CST  
+tested in tomcat6, 8  
+I code it before learned git, so the changelog is bad~  
+now I am a pythoner and nearly forget how to code java(OMG)...  
+I think it would be easier and better that the client use python...  
 
 my e-mail:  
 needlewang2011@gmail.com
