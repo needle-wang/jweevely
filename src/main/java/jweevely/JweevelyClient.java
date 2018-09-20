@@ -4,7 +4,6 @@ import org.apache.http.HeaderElement;
 import org.apache.http.HeaderElementIterator;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -26,7 +25,10 @@ import java.net.URLEncoder;
 import static org.jline.builtins.Completers.FileNameCompleter;
 
 /**
- * @author needle wang creat it at 2013年 12月 08日 星期日 22:56:07 CST
+ * 2018年 09月 20日 星期四 22:25:13 CST
+ * 2013年 12月 08日 星期日 22:56:07 CST
+ *
+ * @author needle wang
  */
 public class JweevelyClient {
   public JweevelyClient(UserMesg aUser, String hostname, String cwd) {
@@ -73,7 +75,8 @@ public class JweevelyClient {
 
   public static String oneJweevelyClient(CloseableHttpClient httpclient,
                                          HttpPost httppost, String password, String inputStr, String identify)
-      throws ClientProtocolException, IOException {
+      throws IOException {
+    // throws ClientProtocolException, IOException {
 
     populateCookiesValue(httppost, password, inputStr);
 
@@ -200,8 +203,8 @@ public class JweevelyClient {
   private LineReader lineReader;
   private String prompt;
 
-  public static void main(String[] args) throws URISyntaxException,
-      ClientProtocolException, IOException {
+  public static void main(String[] args) {
+    // public static void main(String[] args) throws URISyntaxException, ClientProtocolException, IOException {
     if (args == null || args.length != 2) {
       System.out.println("usage:\njava -jar jweevely.jar url password");
       return;
@@ -215,14 +218,26 @@ public class JweevelyClient {
 
     // URI uri = new URIBuilder().setScheme("http").setHost("127.0.0.1")
     // .setPort(8080).setPath("/jweevely/index.jsp").build();
-    URI uri = new URI(args[0]);
+    URI uri;
+    try {
+      uri = new URI(args[0]);
+    } catch (URISyntaxException e) {
+      System.out.println(e.getMessage());
+      return;
+    }
     HttpPost httppost = new HttpPost(uri);
     httppost.addHeader(HttpHeaders.USER_AGENT,
         "Mozilla/5.0 (compatible; Googlebot/2.1; http://www.google.com/bot.html)");
 
-    // get hostname. replace the last \n!!
-    String hostname = oneJweevelyClient(httpclient, httppost, password,
-        "hostname", pa_identify);
+    String hostname = null;
+    try {
+      // get hostname. replace the last \n!!
+      hostname = oneJweevelyClient(httpclient, httppost, password,
+          "hostname", pa_identify);
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+      return;
+    }
     hostname = hostname.replaceAll("\n", "");
 
     // System.out.println(BuiltIn.useage());
@@ -244,9 +259,15 @@ public class JweevelyClient {
       osName = "windows";
     }
 
-    // get cwd. replace the last \n!!
-    String cwd = oneJweevelyClient(httpclient, httppost, password,
-        pwd_command, pa_identify);
+    String cwd = null;
+    try {
+      // get cwd. replace the last \n!!
+      cwd = oneJweevelyClient(httpclient, httppost, password,
+          pwd_command, pa_identify);
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+      return;
+    }
     cwd = cwd.replaceAll("[\r\n]", "");
 
     JweevelyClient connector = new JweevelyClient(aUser, hostname, cwd);
@@ -265,7 +286,13 @@ public class JweevelyClient {
     // jline2.1
     // It would read chinese word wrong in win without System.in.
     // use jline3
-    LineReader reader = connector.getConsole();
+    LineReader reader = null;
+    try {
+      reader = connector.getConsole();
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+      return;
+    }
 
     String inputStr;
     try {
@@ -306,7 +333,7 @@ public class JweevelyClient {
     } catch (UserInterruptException e) {
     } catch (EndOfFileException e) {
     } catch (IOException e) {
-      // e.printStackTrace();
+      System.out.println(e.getMessage());
     } finally {
       return;
     }
