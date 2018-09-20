@@ -20,11 +20,11 @@ a exec jsp shell, simply like weevely php C/S shell
 
 ##### SERVER AND CLIENT
 - SERVER: `jweevely.jsp`  
- - can only be deployed in jdk1.8 or lower  
- - `key_important` is the md5 value of `passwd_in_jsp`
+  - can only be deployed in jdk1.8 or lower  
+  - `key_important` is the md5 value of `passwd_in_jsp`
 
 - CLIENT: `jweevely.jar`  
- - default: java 8  
+  - default: java 8  
 
 ##### MISC
 2018年 09月 17日 星期一 04:20:20 CST  

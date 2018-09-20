@@ -1,6 +1,5 @@
 package jweevely;
 
-import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 import org.apache.http.HeaderElement;
 import org.apache.http.HeaderElementIterator;
 import org.apache.http.HttpEntity;
