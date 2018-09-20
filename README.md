@@ -10,9 +10,10 @@ a exec jsp shell, simply like weevely php C/S shell
 6. use cookie to send encrypted data, the same as weevely  
 
 ##### MODULE(not exactly module, just another jsp):  
-- module_db.jsp     : it can remove itself by using a timer  
-- reverse_shell.jsp : from msf  
-- ...(such as jfolder.jsp, do it by yourself)  
+- module_uploadbin.jsp  : upload binary file
+- module_db.jsp         : operate DB, it can remove itself by using a timer  
+- reverse_shell.jsp     : from msf  
+- ...(#TODO, such as jfolder.jsp, do it by yourself)  
 
 ##### HOWTO
 `java -jar jweevely0.4.jar http://127.0.0.1:8080/jweevely.jsp passwd_in_jsp`

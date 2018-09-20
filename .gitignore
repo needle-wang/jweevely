@@ -11,8 +11,12 @@
 hs_err_pid*
 
 
-#for myeclipse
-.*
+# myeclipse
 WebRoot/WEB-INF/classes/
 WebRoot/META-INF/
+
+# idea
+.idea/
 *.iml
+target/
+

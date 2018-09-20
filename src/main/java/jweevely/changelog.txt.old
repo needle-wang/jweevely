@@ -1,0 +1,63 @@
+  
+  @author needle wang
+  @mail   needlewang2011@gmail.com
+
+  @version 0.4 2014年 05月 16日 星期五 06:36:02 CST
+  @msg. add a module for querying the remote database.
+        create the way that a timer delete the module self after an hour.
+        2014年 05月 16日 星期五 16:51:52 CST
+        impove the timer's logic validity, and -d option's.
+        2014年 05月 17日 星期六 03:54:52 CST
+        fix a serious bug that after invoke uploadfile, the post's data doesn't be
+        clean, it would disturb next re-post. this bug infects version less 0.4.
+        2014年 05月 17日 星期六 17:46:14 CST
+        add the simple function of command built in and local file completer from jline2.10.
+        fix server's error output sometimes is null.
+        because the errThread sometimes has not finished after sending response.
+        fix that reading a file for upload, haven't been closed.
+        change (File) uriAbsolutePath to String type for uploading file when win connecting linux.
+        hide the realpath cookie, reallpath just appear on a trip, first set path, second set null. 
+        if the realpath cookie's length is so long, would not be removed, but set null!
+  @tip. the :upload.file -d need non-null remoteAbsolutePath for reliable expectation.
+        if very know the struct of jweevly, you can use relative path.
+        here:
+        	:upload file aLocalFile	//would upload to the current.file's parent dir.
+        	:upload file aLocalFile -d	//report error.
+        	:upload file aLocalFile -d aFileName	//would upload to the user.dir(original cwd).
+        	:upload file aLocalFile -d aAbsoluteFileName	//that is what you want clearly.
+  @bug. \ need double \\, I don't know how to fix it.
+        sometimes need ctrl-l for dirty screen view when you delete some character.
+  
+  @version 0.3.2 2014年 05月 15日 星期四 02:37:58 CST
+  @msg. the method of getUploadFile add the '-d' option,
+        and try the exception by remote os as remote file not found.
+        add doc root, which is the web application' root.
+        fix that it can not cd between the partitions in windows.
+        add that uploading a File support the local path with '~'.
+  @bug. in windows: some command like echo, needle the path as \ not / (maybe, not sure)
+        2014年 05月 15日 星期四 19:05:48 CST
+        echo not support ' or ", it just echo all.
+        in windows: copy support /; move need the path + / + filename, the path can use /.
+        			type/dir need fully \, not support /.
+
+  @version 0.3.1 2013年 12月 08日 星期日 19:04:02 CST
+  @msg. fix that input chinese's words will be badly decoded by base64, which
+        depends to remoteOS's env if localOS is different with remotOS. encode
+        the chinese words to unicode.
+
+  @version 0.3
+  @msg. one day... 2013年 12月 07日 星期六 05:05:26 CST
+  @msg. rebuild, encapsulate code, and add UserMesg.java and doUploadFile()
+  
+  @version 0.2
+  @msg. one day... 2013年 12月 05日 星期四 23:31:56 CST
+  @meg. doesn't support GBK file's content but name is ok.
+  @meg. add unicode encode for chinese word. then remove it~, consolereader
+        make it wrong.
+  @msg. fix that can't interact with more and more cmd. (fix cookie raising
+        more and more).
+  @msg. change pa to sess0.
+  
+  @version 0.1
+  @msg. one night... 2013年 12月 04日 星期三 07:33:09 CST
+ 
