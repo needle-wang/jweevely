@@ -26,6 +26,7 @@ public class Test {
     }
     br.close();
     System.out.println(Float.valueOf(System.getProperty("java.version").substring(0, 3)) > 1.6);
+
   }
 
 }

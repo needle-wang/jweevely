@@ -73,7 +73,7 @@ public class UserMesg {
     return new String(b);
   }
 
-  public static String decode_to_base64(String str) {
+  public static String decode_from_base64(String str) {
     byte[] b = str.getBytes();
     b = new Base64().decode(b);
     return new String(b);

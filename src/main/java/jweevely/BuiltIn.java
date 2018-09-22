@@ -1,9 +1,7 @@
 package jweevely;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -63,10 +61,9 @@ public class BuiltIn {
     return BuiltIn.doc_root;
   }
 
-  public static void setUriAbsolutePath(String uriAbsolutePath) {
-    uriAbsolutePath = uriAbsolutePath.substring(
-        uriAbsolutePath.indexOf("`") + 1,
-        uriAbsolutePath.lastIndexOf("`"));
+  public static void setUriAbsolutePath(String uriAbsolutePath) throws UnsupportedEncodingException {
+    uriAbsolutePath = URLDecoder.decode(uriAbsolutePath, "UTF-8");
+    uriAbsolutePath = UserMesg.decode_from_base64(uriAbsolutePath);
 
     int path_delimiter_index = uriAbsolutePath.indexOf(":");
 

