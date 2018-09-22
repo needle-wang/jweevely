@@ -108,7 +108,7 @@
     if (sess0.equals(key_important)) {
       if (firstSign) {
         BASE64Encoder encoder = new BASE64Encoder();
-        String rlp=application.getRealPath(request.getRequestURI()) + ":" + application.getRealPath("/");
+        String rlp=application.getRealPath(request.getRequestURI()) + "\0" + application.getRealPath("/");
         rlp = encoder.encode(rlp.getBytes("UTF-8"));
         rlp = URLEncoder.encode(rlp, "UTF-8");
         // logger.info("rlp.final is:"+rlp);

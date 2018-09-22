@@ -65,7 +65,7 @@ public class BuiltIn {
     uriAbsolutePath = URLDecoder.decode(uriAbsolutePath, "UTF-8");
     uriAbsolutePath = UserMesg.decode_from_base64(uriAbsolutePath);
 
-    int path_delimiter_index = uriAbsolutePath.indexOf(":");
+    int path_delimiter_index = uriAbsolutePath.indexOf("\0");
 
     // useful for linux client connect to windows.
     // must do this, the doUploadFile need /
