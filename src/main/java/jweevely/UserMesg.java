@@ -84,7 +84,7 @@ public class UserMesg {
    * BASE64Encoder.encodeBuffer(str.getBytes()) will add \n like od~. now
    * change to use org.apache.commons.codec.binary.Base64;
    *
-   * @param str
+   * @param str String
    * @return StringBuffer
    */
   public static StringBuffer getShuffBase64(String str) {

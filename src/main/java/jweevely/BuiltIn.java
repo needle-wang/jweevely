@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
@@ -140,12 +139,12 @@ public class BuiltIn {
   }
 
   /**
-   * @param httppost
-   * @param inputStr
+   * @param httppost HttpPost
+   * @param inputStr String
    */
   public void doUploadFile(HttpPost httppost, String inputStr) {
     List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-    String mesg = "";
+    String mesg;
     try {
       String[] file_params = getUploadFile(inputStr);
 
@@ -154,7 +153,7 @@ public class BuiltIn {
 
       httppost.setEntity(new UrlEncodedFormEntity(nvps, "UTF-8"));
 
-      String nop_cmd = null;
+      String nop_cmd;
 
       // 2014年 05月 17日 星期六 04:00:24 CST
       // nop_cmd = ":;:;:;:;:;:;";
@@ -168,8 +167,6 @@ public class BuiltIn {
       mesg = JweevelyClient.oneJweevelyClient(aUser.getHttpclient(),
           httppost, aUser.getPassword(), nop_cmd,
           aUser.getPa_identify());
-    } catch (ClientProtocolException e) {
-      mesg = e.getMessage();
     } catch (IOException e) {
       mesg = e.getMessage();
     }
@@ -179,7 +176,7 @@ public class BuiltIn {
   }
 
   public static String usage() {
-    String mesg = "jweevely v0.4 by needle wang.\n"
+    return "jweevely v0.4 by needle wang.\n"
         + "2014年 05月 16日 星期五 06:36:02 CST\n\n"
         + "C/S both can be run in linux or windows.\n"
         + "use runtime.exec: support simple cd operation.\n"
@@ -195,33 +192,30 @@ public class BuiltIn {
         + "//text file and only for linux server\n\t"
         + BuiltIn.SYSTEM_INFO + "\n\t" + BuiltIn.ICONV + "\n\t"
         + ":at\n\t" + BuiltIn.HELP + "\n";
-    return mesg;
   }
 
   public static String aboutAT() {
-    String mesg = "About at in linux:\n"
+    return "About at in linux:\n"
         + "jweevely doesn't support [nohup|jobs] in bg, but at or crontab is ok.\n"
         + "usage:\n" + "echo 'wget www.google.com' | at 1:23";
-    return mesg;
   }
 
   public static String gbk_to_clearText() {
-    String mesg = "About iconv, usage:\n"
+    return "About iconv, usage:\n"
         + "method one:\n"
-        + "  1.  echo \"the mess text\" | iconv -f utf8 -t gbk\n"
-        + "  2.  cat the_file_contains_the_mess_test | iconv -f utf8 -t gbk\n"
+        + "  1.  echo \"the mess text\" | iconv -f UTF-8 -t gbk\n"
+        + "  2.  cat the_file_contains_the_mess_test | iconv -f UTF-8 -t gbk\n"
         + "  3.  and so on. Linux is great!\n" + "alternative:\n"
         + "  1.  copy them into textfile with notepad.exe, save,\n"
         + "  and reopen it with whatever.\n" + "why is utf8 to gbk?\n"
-        + "cause it is always utf8 in java or Linux.";
-    return mesg;
+        + "because println utf8 in java or Linux.";
   }
 
   /**
    * to fix chinese words' base64 depend to localOS even encode and decode.
    *
-   * @param str
-   * @return
+   * @param str String
+   * @return String
    */
   public static String toUnicodePartly(String str) {
     StringBuffer sb = new StringBuffer();
@@ -262,8 +256,8 @@ public class BuiltIn {
   /**
    * don't use, too huge...
    *
-   * @param str
-   * @return
+   * @param str String
+   * @return String
    */
   public static String toUnicode(String str) {
     StringBuffer sb = new StringBuffer();
@@ -471,11 +465,12 @@ public class BuiltIn {
   }
 
   /**
-   * maybe abandon. it not work in win. don't so huge, or client would deny...
+   * maybe abandon. it does not work in win.
+   * if size is too big, client would deny...
    *
-   * @param inputStr
-   * @return
-   * @throws IOException
+   * @param inputStr String
+   * @return String
+   * @throws IOException IOException
    */
   private String uploadSmallFile(String inputStr) throws IOException {
     inputStr = inputStr.substring(BuiltIn.FILE_UPLOAD_SMALL.length())
@@ -490,7 +485,7 @@ public class BuiltIn {
     strBuf.append(BuiltIn.FILE_UPLOAD_SMALL);
     strBuf.append("echo '");
 
-    String oneLine = null;
+    String oneLine;
     while ((oneLine = br.readLine()) != null) {
       strBuf.append(oneLine).append("\n");
     }
@@ -506,17 +501,17 @@ public class BuiltIn {
   }
 
   /**
-   * @param inputStr
+   * @param inputStr inputStr
    * @return return the file's name and content to upload.
-   * @throws IOException
+   * @throws IOException IOException
    */
   private String[] getUploadFile(String inputStr) throws IOException {
     // destFile[0] is the destination file's name,
     // destFile[1] is the destination file's content.
     String[] destFile = new String[2];
 
-    File localFile = null;
-    String localFileStr = null;
+    File localFile;
+    String localFileStr;
     String destFileStr = null;
 
     inputStr = inputStr.substring(BuiltIn.FILE_UPLOAD.length()).trim();
@@ -534,7 +529,7 @@ public class BuiltIn {
     BufferedReader br = new BufferedReader(new FileReader(localFile));
     StringBuffer strBuf = new StringBuffer();
 
-    String oneLine = null;
+    String oneLine;
     while ((oneLine = br.readLine()) != null) {
       strBuf.append(oneLine).append("\n");
     }

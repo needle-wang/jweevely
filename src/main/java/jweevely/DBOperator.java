@@ -23,13 +23,12 @@ public class DBOperator {
       ClassNotFoundException {
     // 加载数据库驱动
     Class.forName(driverName);
-    Connection conn = DriverManager.getConnection(url, user, pass);
-    return conn;
+    return DriverManager.getConnection(url, user, pass);
   }
 
   // 2.1获取语句执行对象
   public static Statement getStatement(Connection conn) throws SQLException {
-    Statement stmt = null;
+    Statement stmt;
     stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
         ResultSet.CONCUR_READ_ONLY);
     return stmt;
@@ -38,7 +37,7 @@ public class DBOperator {
   // 2.2获取预处理语句执行对象
   public static PreparedStatement getPreparedStatement(Connection conn,
                                                        String sql) throws SQLException {
-    PreparedStatement pstmt = null;
+    PreparedStatement pstmt;
     pstmt = conn.prepareStatement(sql);
     return pstmt;
   }
@@ -46,7 +45,7 @@ public class DBOperator {
   // 3.获取结果集对象
   public static ResultSet getResultSet(Statement stmt, String sql)
       throws SQLException {
-    ResultSet res = null;
+    ResultSet res;
     res = stmt.executeQuery(sql);
     return res;
   }
@@ -91,8 +90,7 @@ public class DBOperator {
     conn = null;
   }
 
-  public static void main(String[] args) throws SQLException,
-      ClassNotFoundException {
+  public static void main(String[] args) {
     String driverName = "com.mysql.jdbc.Driver";
     String conn_url = "jdbc:mysql://127.0.0.1/db_name";
     String conn_userName = "root";
@@ -103,7 +101,7 @@ public class DBOperator {
     Connection conn = null;
     Statement statement = null;
     ResultSet rs = null;
-    ResultSetMetaData rsmd = null;
+    ResultSetMetaData rsmd;
 
     try {
       conn = DBOperator.getConn(driverName, conn_url, conn_userName,

@@ -20,7 +20,7 @@ public class Test {
     BufferedReader br = new BufferedReader(
         new InputStreamReader(proc.getInputStream()),
         4096);
-    String outputline = null;
+    String outputline;
     while ((outputline = br.readLine()) != null) {
       System.out.println(outputline);
     }

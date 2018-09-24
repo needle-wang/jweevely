@@ -35,7 +35,7 @@ public class Gp {
   /**
    * Do the work of scanning one file
    *
-   * @param ifile         BufferedReader object already open
+   * @param inputFile     BufferedReader object already open
    * @param fileName      String Name of the input file
    * @param printFileName Boolean - true to print filename before lines that match.
    */
@@ -56,7 +56,7 @@ public class Gp {
       }
       inputFile.close();
     } catch (IOException e) {
-      System.err.println(e);
+      System.err.println(e.getMessage());
     }
   }
 

