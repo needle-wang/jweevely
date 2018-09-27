@@ -41,7 +41,6 @@ public class JweevelyClient {
   }
 
   public LineReader getConsole() throws IOException {
-    LineReaderBuilder lineReaderBuilder;
     if (lineReader == null) {
       // jline2
       // lineReader = new ConsoleReader(System.in, System.out);
@@ -55,21 +54,16 @@ public class JweevelyClient {
           NullCompleter.INSTANCE
       );
 
-      lineReaderBuilder = LineReaderBuilder.builder();
-      lineReaderBuilder.terminal(terminal);
-      lineReaderBuilder.completer(argumentCompleter);
+      LineReaderBuilder lineReaderBuilder = LineReaderBuilder.builder();
+      lineReaderBuilder.appName("jweevely0.4")
+                       .completer(argumentCompleter)
+                       .option(LineReader.Option.HISTORY_BEEP, false)
+                       .terminal(terminal);
       lineReader = lineReaderBuilder.build();
     }
 
-    String osName = builtIn.getLocalOsName();
-    if (osName.toLowerCase().contains("win")) {
-      System.out.println("-----your Console is terrible.-----\n"
-          + "if it reports some errors, just ignore it.");
-      prompt = "jweevely@" + builtIn.getHostname() + "> ";
-    } else {
-      prompt = "\u001B[33mjweevely\u001B[0m@"
-          + builtIn.getHostname() + "\u001B[33m>\u001B[0m ";
-    }
+    prompt = "\u001B[33mjweevely\u001B[0m@"
+        + builtIn.getHostname() + "\u001B[33m>\u001B[0m ";
 
     return lineReader;
   }
