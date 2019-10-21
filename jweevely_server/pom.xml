@@ -5,33 +5,27 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <artifactId>jweevely</artifactId>
     <groupId>jweevely</groupId>
+    <artifactId>jweevely</artifactId>
     <version>0.4</version>
   </parent>
 
+  <groupId>jweevely</groupId>
   <artifactId>jweevely_server</artifactId>
   <packaging>war</packaging>
+  <version>0.4</version>
 
   <name>jweevely_server Maven Webapp</name>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
-
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.12</version>
     </dependency>
   </dependencies>
 
   <build>
-    <finalName>jweevely_server</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
@@ -46,6 +40,10 @@
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.7.0</version>
+          <configuration>
+            <source>1.8</source>
+            <target>1.8</target>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>

@@ -10,6 +10,7 @@
   <version>0.4</version>
 
   <modules>
+    <module>jweevely_client</module>
     <module>jweevely_server</module>
   </modules>
 
@@ -19,38 +20,4 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
   
-  <dependencies>
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.12</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-text</artifactId>
-      <version>1.4</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>4.5.6</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jline</groupId>
-      <artifactId>jline</artifactId>
-      <version>3.9.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jline</groupId>
-      <artifactId>jline-terminal-jna</artifactId>
-      <version>3.9.0</version>
-    </dependency>
-    <dependency>
-      <groupId>net.java.dev.jna</groupId>
-      <artifactId>jna</artifactId>
-      <version>4.5.2</version>
-    </dependency>
-  </dependencies>
-
-
 </project>

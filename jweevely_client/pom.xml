@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>jweevely</groupId>
+    <artifactId>jweevely</artifactId>
+    <version>0.4</version>
+  </parent>
+
+  <groupId>jweevely</groupId>
+  <artifactId>jweevely_client</artifactId>
+  <packaging>jar</packaging>
+  <version>0.4</version>
+
+  <name>jweevely_client App</name>
+
+  <dependencies>
+    <!--<dependency>-->
+    <!--  <groupId>mysql</groupId>-->
+    <!--  <artifactId>mysql-connector-java</artifactId>-->
+    <!--  <version>8.0.12</version>-->
+    <!--</dependency>-->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-text</artifactId>
+      <version>1.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jline</groupId>
+      <artifactId>jline</artifactId>
+      <version>3.9.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jline</groupId>
+      <artifactId>jline-terminal-jna</artifactId>
+      <version>3.9.0</version>
+    </dependency>
+    <dependency>
+      <groupId>net.java.dev.jna</groupId>
+      <artifactId>jna</artifactId>
+      <version>4.5.2</version>
+    </dependency>
+  </dependencies>
+
+</project>

